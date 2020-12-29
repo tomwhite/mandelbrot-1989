@@ -1,0 +1,62 @@
+Rem A program to draw the Mandelbrot Set in GFA Basic
+Rem Reconstructed from programs written by Tom White in 1989
+Rem See mandelbrot-listing1.png
+@Init
+@Mandelbrot
+Procedure Init
+  Minx=-2
+  Maxx=1.2
+  Miny=-1
+  Maxy=1
+  Dim Jold%(1,400)
+  Gap=2
+  Rangex=Maxx-Minx
+  Rangey=Maxy-Miny
+  Constantpx=640/Rangex
+  Constantpy=400/Rangey
+Return
+Procedure Mandelbrot
+  Zr=0
+  Zi=0
+  Arrayfill Jold%(),0
+  T=Timer
+  For X=Minx To Maxx Step Rangex/640
+    For Y=Miny To Maxy Step Rangey/400
+      Clr Zr,Zi
+      For J%=1 to 100
+        Zrs=Zr*Zr
+        Zis=Zi*Zi
+        Zrnew=Zrs-Zis
+        Zinew=Zr*Zi*2
+        Add Zrnew,X
+        Add Zinew,Y
+        Zr=Zrnew
+        Zi=Zinew
+        Exit If Zrs>4 Or Zis>4
+      Next J%
+      Px=Constantpx*(X-Minx)+1
+      Py=(Constantpy*(Y-Miny))+1
+      Py=401-Py
+      D=640-(Px-Py)
+      Color 0
+      If Odd(D) And Jold%(0,Py-1)>=J%
+        Color 1
+      Endif
+      If Even(D) And Jold%(0,Py-1)>=J%+Gap
+        Color 1
+      Endif
+      Draw Px,Py
+      Jold%(1,Py)=J%
+    Next Y
+    For I%=0 To 400
+      Swap Jold%(0,I%),Jold%(1,I%)
+    Next I%
+  Next X
+  Time%(0)=Int((Timer-T)/200)
+  If Time%(0) Div 3600>=1
+    Time%(1)=Time%(0) Div 3600
+  Endif
+  Time%(2)=Int((Time%(0) Mod 3600)/60)
+  Time%(3)=(Time%(0) Mod 3600) Mod 60
+  Magnify=1/Rangey
+Return
