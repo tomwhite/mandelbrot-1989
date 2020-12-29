@@ -129,6 +129,7 @@ cp MANDBROT.LST disk/gfatt36/
 * In Hatari preferences ("Disks" -> "Hard Disks") I chose the _disk/gfatt36_ directory just created as the GEMDOS drive, so it would be exposed as the C hard drive on the ST desktop.
 * I started Hatari, double clicked on "DISK C", then double clicked on "GFABASIC.PRG".
 * After starting GFA Basic, I clicked on the `Merge` menu to load the ASCII format listing, and selected `MANDBROT.LST`.
+
 ![Mandelbrot listing in GFA Basic Editor](scans/mandelbrot-gfa-basic.png)
 * Finally I clicked on `Run` (Shift-F10) and watched the program render the Mandelbrot Set! (It took a few hours...)
 * I captured the output with File -> Capture -> Screen. (Clicking on `Flip` in the GFA Basic menu allows you to flip back to the program output.)
